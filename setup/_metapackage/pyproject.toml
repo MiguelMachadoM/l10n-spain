@@ -52,6 +52,7 @@ dependencies = [
     "odoo-addon-l10n_es_payment_order_confirming_aef==18.0.*",
     "odoo-addon-l10n_es_payment_order_confirming_sabadell==18.0.*",
     "odoo-addon-l10n_es_pos_oca==18.0.*",
+    "odoo-addon-l10n_es_pos_config_shop_identity==18.0.*",
     "odoo-addon-l10n_es_pos_sii==18.0.*",
     "odoo-addon-l10n_es_pos_sii_match==18.0.*",
     "odoo-addon-l10n_es_reav==18.0.*",

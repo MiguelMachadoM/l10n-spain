@@ -1,0 +1,11 @@
+.pos-receipt .shop-identity-simplified {
+    font-size: 1.1em;
+    font-weight: 700;
+}
+/* Hide the two-line block added by l10n_es_pos_oca. */
+.pos-receipt .pos-receipt-contact .simplified-invoice-number {
+    display: none;
+}
+.pos-receipt .pos-receipt-contact > div:has(+ .simplified-invoice-number) {
+    display: none;
+}

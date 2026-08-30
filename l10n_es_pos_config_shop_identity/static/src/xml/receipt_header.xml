@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates id="template" xml:space="preserve">
+    <t
+        t-name="l10n_es_pos_config_shop_identity.ReceiptHeader"
+        t-inherit="point_of_sale.ReceiptHeader"
+        t-inherit-mode="extension"
+    >
+        <!-- Target a core node so this inherit does not depend on
+             l10n_es_pos_oca already having patched the same template. -->
+        <xpath expr="//div[@t-if='props.data.company.name']" position="before">
+            <t t-if="props.data.is_simplified_config and !props.data.to_invoice">
+                <div class="shop-identity-simplified">
+                    <span>Simplified invoice</span>: <t
+                    t-esc="props.data.l10n_es_unique_id"
+                />
+                </div>
+            </t>
+        </xpath>
+    </t>
+</templates>
