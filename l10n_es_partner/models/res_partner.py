@@ -75,9 +75,22 @@ class ResPartner(models.Model):
     @api.model
     @api.readonly
     def name_search(self, name="", domain=None, operator="ilike", limit=100):
-        # Inject the field comercial in _rec_names_search if not exists
-        if "comercial" not in self._rec_names_search:
-            self._rec_names_search.append("comercial")
-        return super().name_search(
-            name=name, domain=domain, operator=operator, limit=limit
-        )
+        # Mutate the shared ``_rec_names_search`` list in place (assignment is
+        # read-only on the recordset in Odoo 19). For negative operators, drop
+        # ``comercial`` temporarily: OR with ``not ilike`` wrongly includes rows.
+        negative = operator.startswith("not ") or operator in ("!=", "not in")
+        names = self._rec_names_search
+        had_comercial = "comercial" in names
+        if negative and had_comercial:
+            names.remove("comercial")
+        elif not negative and not had_comercial:
+            names.append("comercial")
+        try:
+            return super().name_search(
+                name=name, domain=domain, operator=operator, limit=limit
+            )
+        finally:
+            if negative and had_comercial and "comercial" not in names:
+                names.append("comercial")
+
+
